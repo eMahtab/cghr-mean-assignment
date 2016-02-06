@@ -1,0 +1,17 @@
+{
+  "name": "cghr-mean-assignment",
+  "version": "1.0.0",
+  "description": "CGHR MEAN Assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mahtab",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "chalk": "^1.1.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.2"
+  }
+}
