@@ -7,8 +7,21 @@ exports.addEmployee=function(req,res){
                   var dob=req.body.dob;
                   var sex=req.body.sex;
                   var department=req.body.department;
-                  var age=req.body.age;
+                  var age;
 
+                  if (typeof req.body.age === 'undefined'){
+                  console.log("Age is not specified calculating using date of birth");
+                  var today = new Date();
+                  var dateOfBirth=new Date(dob);
+                  var yearDifference = today.getFullYear() - dateOfBirth.getFullYear();
+                  var monthDifference = today.getMonth() - dateOfBirth.getMonth();
+                          if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dateOfBirth.getDate())) {
+                                 yearDifference--;
+                           }
+                   age=yearDifference;
+                 }else{
+                  age=req.body.age;
+                }
 
                   if(sex !== "Male" & sex !== "Female"){
                     var message="ERROR : Bad Request, Invalid value for sex ";
@@ -89,8 +102,16 @@ exports.updateEmployee=function(req,res){
                                           var dob=req.body.dob;
                                           var sex=req.body.sex;
                                           var department=req.body.department;
-                                          var age=req.body.age;
+                                          var age;
 
+                                          var today = new Date();
+                                              var dateOfBirth=new Date(dob);
+                                              var yearDifference = today.getFullYear() - dateOfBirth.getFullYear();
+                                              var monthDifference = today.getMonth() - dateOfBirth.getMonth();
+                                                      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dateOfBirth.getDate())) {
+                                                             yearDifference--;
+                                                       }
+                                              age=yearDifference;
 
 
                                         record.email=email;
