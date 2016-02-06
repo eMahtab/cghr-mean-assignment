@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+     <title>CGHR MEAN Assignment</title>
+     <link href="/libs/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    var datepicker=$("#datepicker").datepicker({changeMonth:true,changeYear:true,maxDate:"-1M -1D -1Y",dateFormat:"yy-mm-dd"});
+    $("#datepicker").bind("keydown", function (event) {
+       event.preventDefault();
+     });
+  });
+
+  function checkGender() {
+      var x = document.getElementById("gender");
+      var gender=x.value;
+      if(gender !=="Male" & gender !== "Female"){
+        x.value='';
+      }
+  }
+
+  function checkDepartment() {
+      var y = document.getElementById("dept");
+      var department=y.value;
+      if(department !=="Sales" & department !== "IT" & department !== "Manufacturing" & department !== "Public Relations" & department !== "Operations"){
+        y.value='';
+      }
+  }
+
+
+  </script>
+</head>
+
+<body>
+    <div class="container" ng-controller="AppCtrl">
+      <br/>
+      <h1 align="center">CGHR MEAN Assignment - Angular Directory App</h1><br/><br/>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Email</td>
+            <td>Name</td>
+            <td>Date of Birth</td>
+            <td>Department</td>
+            <td>Sex</td>
+            <td>Age</td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <form>
+              <td><input type="email" required pattern="^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$" title="Email should be of form abc@xyz.com" class="form-control"  placeholder="abc@xyz.com" ng-model="employee.email"/></td>
+              <td><input class="form-control" required pattern="[a-zA-Z]+" placeholder="Your name" ng-model="employee.name" title="Username should only contain characters"/></td>
+              <td><input type="text" id="datepicker" class="form-control" required placeholder="YYYY-MM-DD" ng-model="employee.dob"/></td>
+              <td><input id="dept" required title="Department can only be Sales, IT, Manufacturing, Public Relations, Operations" class="form-control"  onblur="checkDepartment();" placeholder="Department" ng-model="employee.department"  /></td>
+              <td><input id="gender" required class="form-control" onblur="checkGender();" title="Gender can only be Male or Female"  placeholder="Gender" ng-model="employee.sex" /></td>
+              <td><input type="number" maxlength="2" min="1" max="99" title="Age can only be a whole number" disabled class="form-control"  placeholder="Age" ng-model="employee.age"/></td>
+              <td><button class="btn btn-success btn-md" ng-click="addEmployee()">Add Employee</button></td>
+              <td><button class="btn btn-success btn-md" ng-click="updateEmployee()">Update Employee</button></td>
+              </form>
+            </tr>
+            <tr ng-repeat="employee in employees">
+              <td>{{employee.email}}</td>
+              <td>{{employee.name}}</td>
+              <td>{{employee.dob | date:'yyyy-MM-dd'}}</td>
+              <td>{{employee.department}}</td>
+              <td>{{employee.sex}}</td>
+              <td>{{employee.age}}</td>
+              <td>
+                  <button class="btn btn-danger btn-sm" ng-click="removeEmployee(employee._id)">Delete</button>&nbsp;&nbsp;
+                  <button class="btn btn-primary btn-sm" ng-click="editEmployee(employee._id)">Edit</button>
+              </td>
+            </tr>
+        </tbody>
+    </div>
+
+     <script src="/libs/js/angular.min.js"></script>
+     <script src="/controllers/controller.js"></script>
+</body>
+
+</html>
